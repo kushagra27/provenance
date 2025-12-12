@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --surface: #171717;
+  --surface-light: #262626;
+  --border: #333333;
+  --accent: #d97706;
+  --accent-light: #f59e0b;
+  --accent-glow: rgba(217, 119, 6, 0.3);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
+}
+
+/* Pulsating animation for scan button */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--accent-glow), 0 0 60px var(--accent-glow);
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Radar scan animation */
+@keyframes radar-scan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.radar-sweep {
+  animation: radar-scan 2s linear infinite;
+}
+
+.status-blink {
+  animation: fade-in-out 1.5s ease-in-out infinite;
+}
+
+/* Timeline line */
+.timeline-line {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--accent) 10%,
+    var(--accent) 90%,
+    transparent
+  );
+}
+
+/* Gradient overlay for image */
+.image-gradient {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 50%,
+    var(--background) 100%
+  );
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Branch line animation */
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.branch-line {
+  stroke-dasharray: 100;
+  animation: draw-line 0.5s ease-out forwards;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border);
+}
+
+/* Hide scrollbar on mobile for cleaner look */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
