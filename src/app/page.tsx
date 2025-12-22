@@ -94,10 +94,13 @@ export default function Home() {
     <main className="min-h-dvh bg-background">
       {/* Header */}
       {appState !== 'results' && (
-        <header className="pt-12 pb-8 px-4 text-center">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Provenance</h1>
-          <p className="text-foreground/60 text-sm">
-            Discover the history behind everyday objects
+        <header className="pt-12 pb-8 px-4 text-center max-w-md mx-auto">
+          <h1 className="text-3xl font-bold text-foreground mb-4">Provenance</h1>
+          <p className="text-foreground/60 text-sm mb-2">
+            We live in a museum of human inventions, but we usually ignore the exhibits.
+          </p>
+          <p className="text-accent text-sm font-medium">
+            Scan an item to learn about how it came to be.
           </p>
         </header>
       )}
